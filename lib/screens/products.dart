@@ -42,7 +42,16 @@ class _ProductsState extends State<Products> {
                 "\$ ${products.products[index].price.toString()}",
                 style: const TextStyle(fontSize: 16),
               ),
-              trailing: Icon(Icons.delete),
+              trailing: IconButton(
+                onPressed: () {
+                  products.deleteProduct(
+                      auth.getToken, products.products[index].id);
+                },
+                icon: Icon(
+                  Icons.delete,
+                  color: Colors.red,
+                ),
+              ),
               onTap: () {
                 Get.to(
                   EditProduct(

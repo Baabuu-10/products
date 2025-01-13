@@ -27,4 +27,24 @@ class ProductController extends GetxController {
       Get.snackbar("Error", "An error occurred while fetching tasks");
     }
   }
+
+  Future<void> deleteProduct(String token, String id) async {
+    try {
+      var url = Uri.parse(
+          "https://flutter-test-server.onrender.com/api/products/${id}");
+      var res = await http.delete(
+        url,
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer $token'
+        },
+      );
+      if (res.statusCode == 200) {
+        Get.snackbar("Product", "deleted successfully");
+        fetchProducts(token);
+      }
+    } catch (e) {
+      Get.snackbar("Error", "Error deleting product");
+    }
+  }
 }
