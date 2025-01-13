@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:products/controllers/authController.dart';
 import 'package:products/controllers/productController.dart';
+import 'package:products/screens/addProduct.dart';
 
 class Products extends StatefulWidget {
   const Products({super.key});
@@ -26,29 +27,14 @@ class _ProductsState extends State<Products> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Expanded(
-          child: Obx(
-            () => ListView.builder(
-              itemBuilder: (context, index) {
-                return ListTile(
-                  leading: Icon(Icons.inventory),
-                  title: Text(
-                    products.products[index].name,
-                    style: const TextStyle(fontSize: 16),
-                  ),
-                  subtitle: Text(products.products[index].price.toString()),
-                  trailing: Placeholder(),
-                  onTap: () {},
-                );
-              },
-              itemCount: products.products.length,
-              padding: EdgeInsets.all(0),
-            ),
-          ),
-        )
-      ],
+    return Scaffold(
+      body: Placeholder(),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Get.to(AddProduct());
+        },
+        child: Text("+"),
+      ),
     );
   }
 }
