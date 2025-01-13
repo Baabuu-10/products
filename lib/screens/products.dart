@@ -29,6 +29,7 @@ class _ProductsState extends State<Products> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       body: Obx(
         () => ListView.builder(
           itemBuilder: (context, index) {
