@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:products/controllers/authController.dart';
-import 'package:products/screens/addProduct.dart';
 import 'package:products/screens/login.dart';
 import 'package:products/screens/products.dart';
 

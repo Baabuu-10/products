@@ -4,6 +4,7 @@ import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:products/controllers/authController.dart';
+import 'package:products/controllers/productController.dart';
 
 class AddProduct extends StatefulWidget {
   const AddProduct({super.key});
@@ -14,8 +15,9 @@ class AddProduct extends StatefulWidget {
 
 class _AddProductState extends State<AddProduct> {
   AuthController auth = Get.find<AuthController>();
+  ProductController product = Get.find<ProductController>();
   TextEditingController name = TextEditingController();
-  TextEditingController decription = TextEditingController();
+  TextEditingController description = TextEditingController();
   TextEditingController price = TextEditingController();
 
   Future<void> addProduct() async {
@@ -26,16 +28,18 @@ class _AddProductState extends State<AddProduct> {
         url,
         headers: {
           'Content-Type': 'application/json',
-          'Authorizatio': 'Bearer ${auth.getToken}'
+          'Authorization': 'Bearer ${auth.getToken}'
         },
         body: jsonEncode({
           'name': name.text,
-          'description': decription.text,
+          'description': description.text,
           'price': price.text
         }),
       );
-      if (res.statusCode == 201) {
+      if (res.statusCode == 201 || res.statusCode == 200) {
+        product.fetchProducts(auth.getToken);
         Get.snackbar("Product", "added successfully");
+        Navigator.pop(context);
       }
     } catch (e) {
       Get.snackbar("Error", "Error adding product");
@@ -46,7 +50,7 @@ class _AddProductState extends State<AddProduct> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Add Task"),
+        title: const Text("Add Product"),
       ),
       body: Padding(
         padding: const EdgeInsets.all(18.0),
@@ -61,7 +65,7 @@ class _AddProductState extends State<AddProduct> {
             ),
             const SizedBox(height: 15),
             TextField(
-              controller: decription,
+              controller: description,
               decoration: const InputDecoration(labelText: "Description"),
               onChanged: (value) {},
             ),

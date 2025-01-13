@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:products/controllers/authController.dart';
 import 'package:products/controllers/productController.dart';
 import 'package:products/screens/addProduct.dart';
+import 'package:products/screens/editProduct.dart';
 
 class Products extends StatefulWidget {
   const Products({super.key});
@@ -28,7 +29,36 @@ class _ProductsState extends State<Products> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Placeholder(),
+      body: Obx(
+        () => ListView.builder(
+          itemBuilder: (context, index) {
+            return ListTile(
+              leading: Icon(Icons.inventory),
+              title: Text(
+                products.products[index].name,
+                style: const TextStyle(fontSize: 16),
+              ),
+              subtitle: Text(
+                "\$ ${products.products[index].price.toString()}",
+                style: const TextStyle(fontSize: 16),
+              ),
+              trailing: Icon(Icons.delete),
+              onTap: () {
+                Get.to(
+                  EditProduct(
+                    id: products.products[index].id,
+                    name: products.products[index].name,
+                    description: products.products[index].description,
+                    price: products.products[index].price,
+                  ),
+                );
+              },
+            );
+          },
+          itemCount: products.products.length,
+          padding: EdgeInsets.all(0),
+        ),
+      ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           Get.to(AddProduct());
