@@ -19,13 +19,7 @@ class _LayoutState extends State<Layout> {
     return SafeArea(
       child: Scaffold(
         backgroundColor: Colors.white,
-        body: auth.token.isEmpty ? Login() : Placeholder(),
-        floatingActionButton: FloatingActionButton(
-          onPressed: () {
-            Get.to(AddProduct());
-          },
-          child: Text("+"),
-        ),
+        body: auth.token.isEmpty ? Login() : Products(),
       ),
     );
   }
